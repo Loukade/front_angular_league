@@ -5,7 +5,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div *ngFor="let champion of champions" class="text-center mx-2" style="margin-left: 10px;">
-      <a [routerLink]="['/champions', champion.name, latestPatch]">
+      <a [routerLink]="['/champions', champion.id, latestPatch]">
         <div class="border rounded p-2 shadow-sm champion-box">
           <img
             [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/champion/' + champion.id + '.png'"

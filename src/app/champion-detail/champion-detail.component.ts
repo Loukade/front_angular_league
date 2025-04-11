@@ -12,8 +12,8 @@ import { ChampionsService } from '../champions.service';
 })
 export class ChampionDetailComponent implements OnInit {
   champion: any; // Pour stocker les détails du champion
-  name: string = '';
   patch: string = '';
+  name: string = '';
 
   constructor(private route: ActivatedRoute, private championsService: ChampionsService) { }
 
@@ -27,7 +27,6 @@ export class ChampionDetailComponent implements OnInit {
 
   loadChampionDetails(): void {
     this.championsService.getChampionDetails(this.name, this.patch).subscribe(data => {
-      console.log(data)
       this.champion = data; // Assurez-vous que la réponse contient les détails du champion
     });
   }
