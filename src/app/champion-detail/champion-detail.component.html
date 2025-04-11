@@ -1,0 +1,28 @@
+<h1>Détails du Champion: {{ champion?.name }}</h1>
+<div *ngIf="champion">
+  <p>Patch: {{ patch }}</p>
+  <div class="mt-4">
+    <h3>Détails</h3>
+    <p><strong>Blurb:</strong> {{ champion?.blurb }}</p>
+    <p><strong>Type de mana:</strong> {{ champion?.partype }}</p>
+
+    <h4>Statistiques</h4>
+    <ul>
+      <li><strong>HP:</strong> {{ champion?.stats.hp }}</li>
+      <li><strong>MP:</strong> {{ champion?.stats.mp }}</li>
+      <li><strong>Vitesse de déplacement:</strong> {{ champion?.stats.movespeed }}</li>
+      <li><strong>Armure:</strong> {{ champion?.stats.armor }}</li>
+      <li><strong>Dégâts d'attaque:</strong> {{ champion?.stats.attackdamage }}</li>
+      <li><strong>Portée d'attaque:</strong> {{ champion?.stats.attackrange }}</li>
+      <li><strong>Vitesse d'attaque:</strong> {{ champion?.stats.attackspeed }}</li>
+      <li><strong>Régénération de HP:</strong> {{ champion?.stats.hpregen }}</li>
+      <li><strong>Régénération de MP:</strong> {{ champion?.stats.mpregen }}</li>
+      <li><strong>Blocage de sorts:</strong> {{ champion?.stats.spellblock }}</li>
+      <!-- Ajoutez d'autres statistiques si nécessaire -->
+    </ul>
+    <h4>Tags</h4>
+    <ul>
+      <li *ngFor="let tag of champion?.tags">{{ tag }}</li>
+    </ul>
+  </div>
+</div>

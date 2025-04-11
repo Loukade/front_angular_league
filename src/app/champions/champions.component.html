@@ -1,0 +1,6 @@
+<h1 class="text-center">Champions du Patch {{ latestPatch }}</h1>
+<ul class="list-group">
+  <li *ngFor="let champion of champions" class="list-group-item">
+    <a [routerLink]="['/champions', champion.name, latestPatch]" class="btn btn-link">{{ champion.name }}</a>
+  </li>
+</ul>
