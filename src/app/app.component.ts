@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { PrimeNG } from 'primeng/config';
 import { MenuComponent } from './menu/menu.component';
 
 @Component({
@@ -11,4 +12,9 @@ import { MenuComponent } from './menu/menu.component';
 })
 export class AppComponent {
   title = 'front_angular_league';
+  constructor(private primeng: PrimeNG) { }
+
+  ngOnInit() {
+    this.primeng.ripple.set(true);
+  }
 }

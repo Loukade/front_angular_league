@@ -1,28 +1,37 @@
-<h1>Détails du Champion: {{ champion?.name }}</h1>
-<div *ngIf="champion">
-  <p>Patch: {{ patch }}</p>
-  <div class="mt-4">
-    <h3>Détails</h3>
-    <p><strong>Blurb:</strong> {{ champion?.blurb }}</p>
-    <p><strong>Type de mana:</strong> {{ champion?.partype }}</p>
+<div class="container mt-4" style="margin-left: 20px;">
+  <h1 class="text-center">{{ champion?.name }}</h1>
+  <h2 class="text-center text-muted">{{ champion?.title }}</h2>
 
-    <h4>Statistiques</h4>
-    <ul>
-      <li><strong>HP:</strong> {{ champion?.stats.hp }}</li>
-      <li><strong>MP:</strong> {{ champion?.stats.mp }}</li>
-      <li><strong>Vitesse de déplacement:</strong> {{ champion?.stats.movespeed }}</li>
-      <li><strong>Armure:</strong> {{ champion?.stats.armor }}</li>
-      <li><strong>Dégâts d'attaque:</strong> {{ champion?.stats.attackdamage }}</li>
-      <li><strong>Portée d'attaque:</strong> {{ champion?.stats.attackrange }}</li>
-      <li><strong>Vitesse d'attaque:</strong> {{ champion?.stats.attackspeed }}</li>
-      <li><strong>Régénération de HP:</strong> {{ champion?.stats.hpregen }}</li>
-      <li><strong>Régénération de MP:</strong> {{ champion?.stats.mpregen }}</li>
-      <li><strong>Blocage de sorts:</strong> {{ champion?.stats.spellblock }}</li>
-      <!-- Ajoutez d'autres statistiques si nécessaire -->
-    </ul>
-    <h4>Tags</h4>
-    <ul>
-      <li *ngFor="let tag of champion?.tags">{{ tag }}</li>
-    </ul>
+  <div class="d-flex justify-content-start align-items-start">
+    <div class="splash-image">
+      <img [src]="'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + champion?.id + '_0.jpg'"
+        alt="{{ champion?.name }}" class="img-fluid" style="max-width: 800px;" />
+    </div>
+
+    <div class="details ml-4">
+      <div *ngIf="champion">
+        <p><strong>Patch:</strong> {{ patch }}</p>
+        <p><strong></strong> {{ champion?.partype }}</p>
+
+        <h4>Statistiques</h4>
+        <ul class="list-group">
+          <li class="list-group-item"><strong>HP:</strong> {{ champion?.stats.hp }}</li>
+          <li class="list-group-item"><strong>MP:</strong> {{ champion?.stats.mp }}</li>
+          <li class="list-group-item"><strong>Vitesse de déplacement:</strong> {{ champion?.stats.movespeed }}</li>
+          <li class="list-group-item"><strong>Armure:</strong> {{ champion?.stats.armor }}</li>
+          <li class="list-group-item"><strong>Dégâts d'attaque:</strong> {{ champion?.stats.attackdamage }}</li>
+          <li class="list-group-item"><strong>Portée d'attaque:</strong> {{ champion?.stats.attackrange }}</li>
+          <li class="list-group-item"><strong>Vitesse d'attaque:</strong> {{ champion?.stats.attackspeed }}</li>
+          <li class="list-group-item"><strong>Régénération de HP:</strong> {{ champion?.stats.hpregen }}</li>
+          <li class="list-group-item"><strong>Régénération de MP:</strong> {{ champion?.stats.mpregen }}</li>
+          <li class="list-group-item"><strong>Blocage de sorts:</strong> {{ champion?.stats.spellblock }}</li>
+        </ul>
+
+        <h4 class="mt-4">Tags</h4>
+        <ul class="list-group">
+          <li *ngFor="let tag of champion?.tags" class="list-group-item">{{ tag }}</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>

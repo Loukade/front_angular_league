@@ -1,0 +1,71 @@
+.container {
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  /* Taille de police plus grande */
+  color: #007bff;
+  /* Couleur du texte */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Ombre du texte */
+  margin-bottom: 20px;
+  /* Espacement en bas */
+  font-weight: bold;
+  /* Met le texte en gras */
+  text-transform: uppercase;
+  /* Met le texte en majuscules */
+}
+
+.row {
+  display: flex;
+  /* Assurez-vous que la ligne utilise flexbox */
+  flex-wrap: wrap;
+  /* Permet aux éléments de passer à la ligne suivante si nécessaire */
+}
+
+
+.champion-box {
+  border: 2px solid #ccc;
+  /* Bordure grise */
+  border-radius: 10px;
+  /* Arrondir les coins */
+  background-color: #f8f9fa;
+  /* Couleur de fond */
+  transition: transform 0.2s;
+  /* Ajoute une transition pour l'effet de survol */
+  display: inline-block;
+  /* Permet de réduire la taille du conteneur à celle de l'image */
+  padding: 5px;
+  /* Ajuste le padding pour un meilleur espacement */
+}
+
+.champion-box:hover {
+  transform: scale(1.05);
+  /* Zoom sur l'image au survol */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Ajoute une ombre au survol */
+}
+
+.img-fluid {
+  max-width: 100%;
+  /* Assurez-vous que l'image s'adapte à son conteneur */
+  height: auto;
+  /* Maintenir le ratio d'aspect */
+}
+
+.mt-2 {
+  margin-top: 10px;
+  /* Ajoute un espacement au-dessus du nom du champion */
+  font-weight: bold;
+  /* Met le texte en gras */
+  color: #333;
+  /* Couleur du texte */
+  font-size: 1.1em;
+  /* Taille de police légèrement plus grande */
+  text-align: center;
+  /* Centre le texte */
+  text-decoration: none;
+  /* Supprime le soulignement */
+}

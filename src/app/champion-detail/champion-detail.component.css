@@ -1,11 +1,53 @@
+.container {
+  margin-top: 20px;
+}
+
+.d-flex {
+  display: flex;
+  /* Utilise flexbox pour aligner les éléments */
+}
+
+.splash-image {
+  flex: 1;
+  /* Permet à l'image de prendre de l'espace */
+}
+
+.details {
+  flex: 2;
+  /* Permet aux détails de prendre plus d'espace */
+  margin-left: 20px;
+  /* Ajoute un espacement à gauche */
+}
+
 h1 {
-  margin-bottom: 20px;
+  font-size: 2.5rem;
+  /* Taille de police plus grande */
+  color: #007bff;
+  /* Couleur du texte */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  /* Ombre du texte */
+}
+
+h2 {
+  font-size: 1.5rem;
+  /* Taille de police pour le titre */
+  color: #6c757d;
+  /* Couleur grise pour le sous-titre */
 }
 
 .list-group-item {
-  transition: background-color 0.3s;
+  background-color: #f8f9fa;
+  /* Couleur de fond des éléments de la liste */
+  border: 1px solid #dee2e6;
+  /* Bordure grise */
 }
 
 .list-group-item:hover {
-  background-color: #f8f9fa;
+  background-color: #e9ecef;
+  /* Couleur de fond au survol */
+}
+
+.mt-4 {
+  margin-top: 20px;
+  /* Ajoute un espacement au-dessus des sections */
 }
