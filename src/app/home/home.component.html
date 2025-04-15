@@ -1,0 +1,15 @@
+<div class="home-container">
+  <div class="search-container">
+    <h1 class="title">Rechercher un joueur</h1>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+      <div class="input-group">
+        <input type="text" formControlName="gameName" placeholder="Pseudo" class="search-input">
+        <span class="separator">#</span>
+        <input type="text" formControlName="tagLine" placeholder="Tag" class="search-input">
+      </div>
+      <button type="submit" [disabled]="!searchForm.valid" class="search-button">
+        Rechercher
+      </button>
+    </form>
+  </div>
+</div>

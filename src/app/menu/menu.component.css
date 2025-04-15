@@ -25,3 +25,88 @@ nav a:hover {
 .navbar {
   margin-bottom: 20px;
 }
+
+.menu-container {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+  border-bottom: 1px solid #4da6ff;
+  padding: 0.5rem 0;
+  position: relative;
+  z-index: 1000;
+}
+
+.menu-content {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.menu-logo {
+  margin-right: 2rem;
+}
+
+.logo-image {
+  height: 40px;
+  width: auto;
+}
+
+:host ::ng-deep .p-menubar {
+  background: transparent !important;
+  border: none !important;
+  width: 100%;
+}
+
+:host ::ng-deep .p-menubar .p-menuitem-link {
+  color: #4da6ff !important;
+  padding: 0.75rem 1.25rem !important;
+  transition: all 0.3s ease !important;
+  font-size: 1.1rem !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+:host ::ng-deep .p-menubar .p-menuitem-link:hover {
+  background: rgba(77, 166, 255, 0.2) !important;
+  color: #80c1ff !important;
+}
+
+:host ::ng-deep .p-menubar .p-menuitem-link .p-menuitem-text {
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+}
+
+:host ::ng-deep .p-menubar .p-menuitem-link .p-menuitem-icon {
+  color: #4da6ff !important;
+  margin-right: 0.5rem !important;
+  font-size: 1.2rem !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .menu-content {
+    padding: 0 1rem;
+  }
+
+  .menu-logo {
+    margin-right: 1rem;
+  }
+
+  .logo-image {
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-content {
+    padding: 0 0.5rem;
+  }
+
+  .menu-logo {
+    margin-right: 0.5rem;
+  }
+
+  .logo-image {
+    height: 25px;
+  }
+}

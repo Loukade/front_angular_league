@@ -1,6 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <p-menubar [model]="nestedMenuItems">
-    <ng-template #end>
-    </ng-template>
-  </p-menubar>
+<nav class="menu-container">
+  <div class="menu-content">
+    <div class="menu-logo">
+      <img src="assets/logo.png" alt="League of Legends" class="logo-image" />
+    </div>
+    <p-menubar [model]="nestedMenuItems"
+      [style]="{'background': 'rgba(30, 35, 40, 0.8)', 'border': '1px solid #c8aa6e'}">
+      <ng-template #end>
+      </ng-template>
+    </p-menubar>
+  </div>
 </nav>

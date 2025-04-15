@@ -1,0 +1,284 @@
+<div class="account-container">
+  <div class="account-header">
+    <h1>Profil de {{ gameName }}#{{ tagLine }}</h1>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <p>Chargement des données...</p>
+  </div>
+
+  <div class="error" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <div class="account-content" *ngIf="!loading && !error">
+    <div class="account-card" *ngIf="accountData">
+      <div class="account-info">
+        <div class="profile-icon">
+          <img
+            [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/profileicon/' + accountData.summoner.profileIconId + '.png'"
+            alt="Icône de profil">
+        </div>
+        <div class="profile-details">
+          <p>Niveau {{ accountData.summoner.summonerLevel }}</p>
+        </div>
+      </div>
+
+      <div class="ranked-stats" *ngIf="accountData.ranked">
+        <h3>Classement</h3>
+        <div class="ranked-queues">
+          <div class="ranked-queue" *ngFor="let queue of accountData.ranked">
+            <div class="queue-type">{{ queue.queueType === 'RANKED_SOLO_5x5' ? 'Solo/Duo' : 'Flex' }}</div>
+            <div class="queue-rank">
+              <span class="tier">{{ queue.tier }}</span>
+              <span class="rank">{{ queue.rank }}</span>
+            </div>
+            <div class="queue-lp">{{ queue.leaguePoints }} LP</div>
+            <div class="queue-stats">
+              <span class="wins">Victoires: {{ queue.wins }}</span>
+              <span class="losses">Défaites: {{ queue.losses }}</span>
+              <span class="winrate">Winrate: {{ (queue.wins / (queue.wins + queue.losses) * 100).toFixed(1) }}%</span>
+            </div>
+            <div class="queue-badges" *ngIf="queue.hotStreak || queue.freshBlood">
+              <span class="badge hot-streak" *ngIf="queue.hotStreak">🔥 Série de victoires</span>
+              <span class="badge fresh-blood" *ngIf="queue.freshBlood">🆕 Nouveau</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="champion-mastery" *ngIf="accountData.champion_mastery">
+        <h3>Champions les plus joués</h3>
+        <div class="mastery-cards">
+          <div class="mastery-card" *ngFor="let mastery of accountData.champion_mastery">
+            <div class="mastery-header">
+              <img
+                [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/champion/' + getChampionNameById(mastery.championId) + '.png'"
+                [alt]="'Champion ' + getChampionNameById(mastery.championId)" class="champion-icon">
+              <div class="mastery-level">
+                <span class="level">Niveau {{ mastery.championLevel }}</span>
+                <span class="points">{{ mastery.championPoints | number:'1.0-0' }} pts</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="match-history" *ngIf="matchHistory">
+        <h3>Historique des matchs</h3>
+        <div class="match-list">
+          <div class="match-card" *ngFor="let match of matchHistory">
+            <div class="match-header">
+              <span class="match-type">{{
+                match.info.gameMode === 'CHERRY' ? 'Arena' :
+                match.info.gameMode === 'SWIFTPLAY' ? 'Partie rapide' :
+                match.info.gameMode === 'CLASSIC' ? 'Classé' :
+                match.info.gameMode
+                }}</span>
+              <span class="match-date">{{ match.info.gameStartTimestamp | date:'dd/MM/yyyy HH:mm' }}</span>
+              <span class="match-duration">{{ match.info.gameDuration | duration }}</span>
+              <span class="match-result" [class.win]="match.info.teams[0].win" [class.lose]="!match.info.teams[0].win">
+                {{ match.info.teams[0].win ? 'Victoire' : 'Défaite' }}
+              </span>
+            </div>
+
+            <div class="match-teams">
+              <ng-container *ngIf="match.info.gameMode !== 'CHERRY'">
+                <div class="team team-blue" [class.win]="match.info.teams[0].win">
+                  <h4>Équipe bleue</h4>
+                  <div class="team-objectives">
+                    <span class="objective" *ngIf="match.info.teams[0].objectives.dragon.kills > 0" title="Dragons">
+                      <span class="objective-icon dragon">🐉</span>
+                      {{ match.info.teams[0].objectives.dragon.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[0].objectives.baron.kills > 0" title="Baron Nashor">
+                      <span class="objective-icon baron">🐉</span>
+                      {{ match.info.teams[0].objectives.baron.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[0].objectives.tower.kills > 0" title="Tours">
+                      <span class="objective-icon tower">🏰</span>
+                      {{ match.info.teams[0].objectives.tower.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[0].objectives.inhibitor.kills > 0"
+                      title="Inhibiteurs">
+                      <span class="objective-icon inhibitor">💎</span>
+                      {{ match.info.teams[0].objectives.inhibitor.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[0].objectives.riftHerald.kills > 0"
+                      title="Héraut de la faille">
+                      <span class="objective-icon rift-herald">🦀</span>
+                      {{ match.info.teams[0].objectives.riftHerald.kills }}
+                    </span>
+                  </div>
+                  <div class="participants">
+                    <div class="participant" *ngFor="let participant of match.info.participants | slice:0:5">
+                      <img
+                        [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/champion/' + participant.championName + '.png'"
+                        [alt]="participant.championName" class="champion-icon">
+                      <div class="participant-info">
+                        <a [routerLink]="['/account', participant.riotIdGameName, participant.riotIdTagline]"
+                          class="summoner-name">
+                          {{ participant.riotIdGameName }}#{{ participant.riotIdTagline }}
+                        </a>
+                        <span class="role">{{ participant.teamPosition }}</span>
+                        <div class="stats">
+                          <div class="kda">
+                            {{ participant.kills }}/{{ participant.deaths }}/{{ participant.assists }}
+                            <span class="kda-ratio"
+                              [class.positive]="calculateKdaRatio(participant.kills, participant.deaths, participant.assists) >= 2">
+                              ({{ calculateKdaRatio(participant.kills, participant.deaths,
+                              participant.assists).toFixed(2)
+                              }})
+                            </span>
+                          </div>
+                          <div class="damage">
+                            💥 {{ participant.totalDamageDealtToChampions | number:'1.0-0' }}
+                          </div>
+                          <div class="cs">
+                            🏃 {{ participant.totalMinionsKilled + participant.neutralMinionsKilled }} CS
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="team team-red" [class.win]="match.info.teams[1].win">
+                  <h4>Équipe rouge</h4>
+                  <div class="team-objectives">
+                    <span class="objective" *ngIf="match.info.teams[1].objectives.dragon.kills > 0" title="Dragons">
+                      <span class="objective-icon dragon">🐉</span>
+                      {{ match.info.teams[1].objectives.dragon.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[1].objectives.baron.kills > 0" title="Baron Nashor">
+                      <span class="objective-icon baron">🐉</span>
+                      {{ match.info.teams[1].objectives.baron.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[1].objectives.tower.kills > 0" title="Tours">
+                      <span class="objective-icon tower">🏰</span>
+                      {{ match.info.teams[1].objectives.tower.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[1].objectives.inhibitor.kills > 0"
+                      title="Inhibiteurs">
+                      <span class="objective-icon inhibitor">💎</span>
+                      {{ match.info.teams[1].objectives.inhibitor.kills }}
+                    </span>
+                    <span class="objective" *ngIf="match.info.teams[1].objectives.riftHerald.kills > 0"
+                      title="Héraut de la faille">
+                      <span class="objective-icon rift-herald">🦀</span>
+                      {{ match.info.teams[1].objectives.riftHerald.kills }}
+                    </span>
+                  </div>
+                  <div class="participants">
+                    <div class="participant" *ngFor="let participant of match.info.participants | slice:5:10">
+                      <img
+                        [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/champion/' + participant.championName + '.png'"
+                        [alt]="participant.championName" class="champion-icon">
+                      <div class="participant-info">
+                        <a [routerLink]="['/account', participant.riotIdGameName, participant.riotIdTagline]"
+                          class="summoner-name">
+                          {{ participant.riotIdGameName }}#{{ participant.riotIdTagline }}
+                        </a>
+                        <span class="role">{{ participant.teamPosition }}</span>
+                        <div class="stats">
+                          <div class="kda">
+                            {{ participant.kills }}/{{ participant.deaths }}/{{ participant.assists }}
+                            <span class="kda-ratio"
+                              [class.positive]="calculateKdaRatio(participant.kills, participant.deaths, participant.assists) >= 2">
+                              ({{ calculateKdaRatio(participant.kills, participant.deaths,
+                              participant.assists).toFixed(2)
+                              }})
+                            </span>
+                          </div>
+                          <div class="damage">
+                            💥 {{ participant.totalDamageDealtToChampions | number:'1.0-0' }}
+                          </div>
+                          <div class="cs">
+                            🏃 {{ participant.totalMinionsKilled + participant.neutralMinionsKilled }} CS
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="match.info.gameMode === 'CHERRY'">
+                <div class="cherry-teams">
+                  <ng-container *ngFor="let participant of match.info.participants; let i = index">
+                    <div class="cherry-team" *ngIf="i % 2 === 0">
+                      <h4>Équipe {{ (i/2) + 1 }}</h4>
+                      <div class="participants">
+                        <div class="participant">
+                          <img
+                            [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/champion/' + participant.championName + '.png'"
+                            [alt]="participant.championName" class="champion-icon">
+                          <div class="participant-info">
+                            <a [routerLink]="['/account', participant.riotIdGameName, participant.riotIdTagline]"
+                              class="summoner-name">
+                              {{ participant.riotIdGameName }}#{{ participant.riotIdTagline }}
+                            </a>
+                            <div class="stats">
+                              <div class="kda">
+                                {{ participant.kills }}/{{ participant.deaths }}/{{ participant.assists }}
+                                <span class="kda-ratio"
+                                  [class.positive]="calculateKdaRatio(participant.kills, participant.deaths, participant.assists) >= 2">
+                                  ({{ calculateKdaRatio(participant.kills, participant.deaths,
+                                  participant.assists).toFixed(2)
+                                  }})
+                                </span>
+                              </div>
+                              <div class="damage">
+                                💥 {{ participant.totalDamageDealtToChampions | number:'1.0-0' }}
+                              </div>
+                              <div class="cs">
+                                🏃 {{ participant.totalMinionsKilled + participant.neutralMinionsKilled }} CS
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="participant" *ngIf="match.info.participants[i + 1]">
+                          <img
+                            [src]="'https://ddragon.leagueoflegends.com/cdn/' + latestPatch + '/img/champion/' + match.info.participants[i + 1].championName + '.png'"
+                            [alt]="match.info.participants[i + 1].championName" class="champion-icon">
+                          <div class="participant-info">
+                            <a [routerLink]="['/account', match.info.participants[i + 1].riotIdGameName, match.info.participants[i + 1].riotIdTagline]"
+                              class="summoner-name">
+                              {{ match.info.participants[i + 1].riotIdGameName }}#{{ match.info.participants[i +
+                              1].riotIdTagline }}
+                            </a>
+                            <div class="stats">
+                              <div class="kda">
+                                {{ match.info.participants[i + 1].kills }}/{{ match.info.participants[i + 1].deaths
+                                }}/{{
+                                match.info.participants[i + 1].assists }}
+                                <span class="kda-ratio"
+                                  [class.positive]="calculateKdaRatio(match.info.participants[i + 1].kills, match.info.participants[i + 1].deaths, match.info.participants[i + 1].assists) >= 2">
+                                  ({{ calculateKdaRatio(match.info.participants[i + 1].kills, match.info.participants[i
+                                  +
+                                  1].deaths, match.info.participants[i + 1].assists).toFixed(2)
+                                  }})
+                                </span>
+                              </div>
+                              <div class="damage">
+                                💥 {{ match.info.participants[i + 1].totalDamageDealtToChampions | number:'1.0-0' }}
+                              </div>
+                              <div class="cs">
+                                🏃 {{ match.info.participants[i + 1].totalMinionsKilled + match.info.participants[i +
+                                1].neutralMinionsKilled }} CS
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,36 +1,87 @@
-<div class="container mt-4" style="margin-left: 20px;">
-  <h1 class="text-center">{{ champion?.name }}</h1>
-  <h2 class="text-center text-muted">{{ champion?.title }}</h2>
+<div class="champion-detail-container">
+  <div class="champion-header">
+    <div class="champion-title">
+      <h1>{{ champion?.name }}</h1>
+      <h2 class="text-muted">{{ champion?.title }}</h2>
+    </div>
+    <div class="champion-tags">
+      <span *ngFor="let tag of champion?.tags" class="tag">{{ tag }}</span>
+    </div>
+  </div>
 
-  <div class="d-flex justify-content-start align-items-start">
-    <div class="splash-image">
+  <div class="champion-content">
+    <div class="splash-container">
       <img [src]="'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/' + champion?.id + '_0.jpg'"
-        alt="{{ champion?.name }}" class="img-fluid" style="max-width: 800px;" />
+        alt="{{ champion?.name }}" class="splash-image" />
     </div>
 
-    <div class="details ml-4">
-      <div *ngIf="champion">
-        <p><strong>Patch:</strong> {{ patch }}</p>
-        <p><strong></strong> {{ champion?.partype }}</p>
+    <div class="champion-info">
+      <div class="info-section">
+        <h3>Informations générales</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Patch</span>
+            <span class="value">{{ patch }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Type de ressource</span>
+            <span class="value">{{ champion?.partype }}</span>
+          </div>
+        </div>
+      </div>
 
-        <h4>Statistiques</h4>
-        <ul class="list-group">
-          <li class="list-group-item"><strong>HP:</strong> {{ champion?.stats.hp }}</li>
-          <li class="list-group-item"><strong>MP:</strong> {{ champion?.stats.mp }}</li>
-          <li class="list-group-item"><strong>Vitesse de déplacement:</strong> {{ champion?.stats.movespeed }}</li>
-          <li class="list-group-item"><strong>Armure:</strong> {{ champion?.stats.armor }}</li>
-          <li class="list-group-item"><strong>Dégâts d'attaque:</strong> {{ champion?.stats.attackdamage }}</li>
-          <li class="list-group-item"><strong>Portée d'attaque:</strong> {{ champion?.stats.attackrange }}</li>
-          <li class="list-group-item"><strong>Vitesse d'attaque:</strong> {{ champion?.stats.attackspeed }}</li>
-          <li class="list-group-item"><strong>Régénération de HP:</strong> {{ champion?.stats.hpregen }}</li>
-          <li class="list-group-item"><strong>Régénération de MP:</strong> {{ champion?.stats.mpregen }}</li>
-          <li class="list-group-item"><strong>Blocage de sorts:</strong> {{ champion?.stats.spellblock }}</li>
-        </ul>
+      <div class="info-section">
+        <h3>Statistiques</h3>
+        <div class="stats-grid">
+          <div class="stat-item" *ngFor="let stat of getStatsArray()">
+            <div class="stat-bar">
+              <div class="stat-fill" [style.width.%]="getStatPercentage(stat.value)"></div>
+            </div>
+            <span class="stat-label">{{ stat.label }} : </span>
+            <span class="stat-value">{{ stat.value }}</span>
+          </div>
+        </div>
+      </div>
 
-        <h4 class="mt-4">Tags</h4>
-        <ul class="list-group">
-          <li *ngFor="let tag of champion?.tags" class="list-group-item">{{ tag }}</li>
-        </ul>
+      <div class="info-section">
+        <h3>Passive</h3>
+        <div class="spell-card">
+          <img
+            [src]="'https://ddragon.leagueoflegends.com/cdn/' + patch + '/img/passive/' + champion?.passive.image.full"
+            alt="{{ champion?.passive.name }}" class="spell-icon" />
+          <div class="spell-info">
+            <h4>{{ champion?.passive.name }}</h4>
+            <p>{{ champion?.passive.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <h3>Sorts</h3>
+        <div class="spells-container">
+          <div class="spell-card" *ngFor="let spell of champion?.spells">
+            <img [src]="'https://ddragon.leagueoflegends.com/cdn/' + patch + '/img/spell/' + spell.image.full"
+              alt="{{ spell.name }}" class="spell-icon" />
+            <div class="spell-info">
+              <h4>{{ spell.name }}</h4>
+              <p>{{ spell.description }}</p>
+              <div class="spell-details">
+                <div class="spell-stat">
+                  <span class="label">Coût</span>
+                  <span class="value">{{ spell.costBurn }}</span>
+                </div>
+                <div class="spell-stat">
+                  <span class="label">Temps de recharge</span>
+                  <span class="value">{{ spell.cooldownBurn }}s</span>
+                </div>
+                <div class="spell-stat">
+                  <span class="label">Portée</span>
+                  <span class="value">{{ spell.rangeBurn }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

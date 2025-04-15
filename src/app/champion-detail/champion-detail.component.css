@@ -51,3 +51,190 @@ h2 {
   margin-top: 20px;
   /* Ajoute un espacement au-dessus des sections */
 }
+
+.champion-detail-container {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 2rem;
+  color: #fff;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+  box-sizing: border-box;
+}
+
+.champion-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.champion-title h1 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+  color: #f0e6d2;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.champion-title h2 {
+  font-size: 1.5rem;
+  color: #c8aa6e;
+}
+
+.champion-tags {
+  margin-top: 1rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.25rem;
+  background: #1e2328;
+  border: 1px solid #c8aa6e;
+  border-radius: 4px;
+  color: #c8aa6e;
+  font-size: 0.9rem;
+}
+
+.champion-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.splash-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.splash-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.splash-image:hover {
+  transform: scale(1.02);
+}
+
+.champion-info {
+  background: rgba(30, 35, 40, 0.8);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid #c8aa6e;
+}
+
+.info-section {
+  margin-bottom: 2rem;
+}
+
+.info-section h3 {
+  color: #c8aa6e;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #c8aa6e;
+  padding-bottom: 0.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.info-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.label {
+  display: block;
+  color: #c8aa6e;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  color: #f0e6d2;
+  font-size: 1.1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+.stat-bar {
+  height: 8px;
+  background: rgba(200, 170, 110, 0.2);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  background: #c8aa6e;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.spell-card {
+  display: flex;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(200, 170, 110, 0.3);
+}
+
+.spell-icon {
+  width: 64px;
+  height: 64px;
+  margin-right: 1rem;
+  border-radius: 4px;
+}
+
+.spell-info {
+  flex: 1;
+}
+
+.spell-info h4 {
+  color: #c8aa6e;
+  margin-bottom: 0.5rem;
+}
+
+.spell-info p {
+  color: #f0e6d2;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.spell-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.spell-stat {
+  text-align: center;
+}
+
+.spell-stat .label {
+  color: #c8aa6e;
+  font-size: 0.8rem;
+}
+
+.spell-stat .value {
+  color: #f0e6d2;
+  font-size: 1rem;
+}
